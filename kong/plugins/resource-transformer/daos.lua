@@ -3,6 +3,7 @@
 -- Required: No
 local SCHEMA = {
   primary_key = {"id"},
+  cache_key = { "resource_name" }, -- cache key for this entity
   table = "resource_transformer", -- the actual table in the database
   fields = {
     id = {type = "id", dao_insert_value = true}, -- a value to be inserted by the DAO itself (think of serial ID and the uniqueness of such required here)

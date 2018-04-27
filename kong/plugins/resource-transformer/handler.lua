@@ -8,7 +8,7 @@
 -- local plugin_name = ({...})[1]:match("^kong%.plugins%.([^%.]+)")
 local plugin_name = "resource-transformer"
 
-local rewrite = require "kong.plugins.resource-transformer.rewrite"
+local access = require "kong.plugins.resource-transformer.access"
 
 -- load the base plugin object and create a subclass
 local ResourceTransformer = require("kong.plugins.base_plugin"):extend()
@@ -33,7 +33,7 @@ end
 -- that the specific handler was executed.
 ---------------------------------------------------------------------------------------------
 
----[[ runs in the 'rewrite_by_lua_block' (from version 0.10.2+)
+--[[ runs in the 'rewrite_by_lua_block' (from version 0.10.2+)
 -- IMPORTANT: during the `rewrite` phase neither the `api` nor the `consumer` will have
 -- been identified, hence this handler will only be executed if the plugin is 
 -- configured as a global plugin!
@@ -43,10 +43,10 @@ function ResourceTransformer:rewrite(plugin_conf)
   rewrite.execute(conf)
 end --]]
 
---[[ runs in the 'access_by_lua'
+---[[ runs in the 'access_by_lua'
 -- Executed for every request from a client and before it is being proxied to the upstream service.
-function MMTRequestTransformer:access(plugin_conf)
-  MMTRequestTransformer.super.access(self)
+function ResourceTransformer:access(plugin_conf)
+  ResourceTransformer.super.access(self)
   -- your custom code here
   access.execute(conf)
 end --]]
@@ -61,7 +61,7 @@ end --]]
 
 
 -- set the plugin priority, which determines plugin execution order
-ResourceTransformer.PRIORITY = 802
+ResourceTransformer.PRIORITY = 780
 ResourceTransformer.VERSION = "0.0.1"
 
 -- return our plugin object

@@ -1,5 +1,5 @@
 
-package = "resource-transformer"  -- TODO: rename, must match the info in the filename of this rockspec!
+package = "kong-plugin-resource-transformer"  -- TODO: rename, must match the info in the filename of this rockspec!
                                   -- as a convention; stick to the prefix: `kong-plugin-`
 version = "0.0.1"               -- TODO: renumber, must match the info in the filename of this rockspec!
 -- The version '0.1.0' is the source code version, the trailing '1' is the version of this rockspec.
@@ -13,22 +13,30 @@ local pluginName = package:match("^kong%-plugin%-(.+)$")  -- "myPlugin"
 supported_platforms = {"linux", "macosx"}
 source = {
   -- these are initially not required to make it work
-  url = "git://github.com/Mashape/kong_plugin",
-  tag = "0.0.1"
+  url = "git@github.com:Kong/kong-plugin.git",
+  tag = "v" .. version
 }
 
 description = {
-  summary = "Kong is a scalable and customizable API Management Layer built on top of Nginx.",
-  homepage = "http://getkong.org",
-  license = "MIT"
+  summary = "Kong plugin to transform the resource ids to uuids.",
+  homepage = "",
+  license = "Apache License 2.0"
 }
 
 dependencies = {
+  "lua >= 5.1"
 }
 
 build = {
   type = "builtin",
   modules = {
+    ["kong.plugins."..pluginName..".access"] = "kong/plugins/"..pluginName.."/access.lua",
+    ["kong.plugins."..pluginName..".api"] = "kong/plugins/"..pluginName.."/api.lua",
+    ["kong.plugins."..pluginName..".daos"] = "kong/plugins/"..pluginName.."/daos.lua",
     ["kong.plugins."..pluginName..".handler"] = "kong/plugins/"..pluginName.."/handler.lua",
+    ["kong.plugins."..pluginName..".hooks"] = "kong/plugins/"..pluginName.."/hooks.lua",
     ["kong.plugins."..pluginName..".schema"] = "kong/plugins/"..pluginName.."/schema.lua",
+    
+    ["kong.plugins."..pluginName..".migrations.cassandra"] = "kong/plugins/"..pluginName.."/migrations/cassandra.lua",
+    ["kong.plugins."..pluginName..".migrations.postgres"] = "kong/plugins/"..pluginName.."/migrations/postgres.lua",
   }

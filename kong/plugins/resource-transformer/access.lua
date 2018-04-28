@@ -33,32 +33,33 @@ local function log_message(level, msg)
 end
 
 local rewrite_uri = function (m)
-  log_message(ngx.CRIT, "REWRITING: " .. dump(m))
+  log_message(ngx.DEBUG, "REWRITING: " .. dump(m))
   local transform_uuid = hooks:get_transform_uuid(m[1])
   local u = uuid.generate_v5(transform_uuid, m['integer_id'])
   
   local new_uri = "/" .. m[1] .. "/" .. u
-  hooks:log_message(ngx.CRIT, "NEW URI IS: " .. new_uri)
+  hooks:log_message(ngx.DEBUG, "NEW URI IS: " .. new_uri)
   
   return new_uri
 end
 
 local function transform_resource_id(conf)
-  local uri = ngx.var.uri
   local resources = hooks.get_resource_list()
+  local uri = ngx.var.uri
   
   for k, v in pairs(resources) do
-    local newstr, n, err = ngx.re.gsub(uri, "/(" .. v .. ")/(?<integer_id>[0-9]+)/", rewrite_uri)
+    local newstr, n, err = ngx.re.gsub(uri, "/(" .. v .. ")/(?<integer_id>[0-9]+)", rewrite_uri)
     uri = newstr
     
-    hooks:log_message(ngx.CRIT, "MATCH_FOUND: " .. newstr)
-    hooks:log_message(ngx.CRIT, "MATCH_FOUND: " .. n)
+    if n>0 then 
+      hooks:log_message(ngx.DEBUG, "MATCH_FOUND: " .. newstr)
+    else
+      hooks.log_message(ngx.DEBUG, "MATCH NOT FOUND FOR: " .. v .. ". Skipping...")
+    end
   
   end
   
   ngx.var.upstream_uri = uri
-
-
 end
 
 function _M.execute(conf)

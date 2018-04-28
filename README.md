@@ -71,7 +71,7 @@ This will look in the path of uri for `user` and if an integer id is found trail
 be taken and coverted to a uuid5 with the transform_uuid. So `uuid.generate_v5("2f4b5070-73b9-5c1c-8d3c-da8ae80051b0", "726)` and the resulting 
 uuid will be rewritten in place of the integer ids, resulting in the upstream uri to be rewritten as `/user/698aa227-04b1-53be-9a46-1459d8a0f493`.
 
-**Update a resource **
+**Update a resource**
 
 ``` sh 
 $ curl -X PUT -H "Content-type: application/json" --data '{"resource_name":"user", "transform_uuid":"2f4b5070-73b9-5c1c-8d3c-da8ae80051b0"}' http://kong:8001/resource-transformer/{id_or_resource_name}
@@ -83,7 +83,7 @@ $ curl -X PUT -H "Content-type: application/json" --data '{"resource_name":"user
 | `transform_uuid` *required* | | `required` The uuid that will be used as the namespace for uuid5 generation. |
 
 
-**Delete a resource **
+**Delete a resource**
 
 ``` sh 
 $ curl -X DELETE http://kong:8001/resource-transformer/{id}

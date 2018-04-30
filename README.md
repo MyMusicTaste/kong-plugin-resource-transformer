@@ -129,9 +129,9 @@ HTTP/1.1 204 No Content
 
 ## Authors
 
-* Kwang Jin Kim - [crazytruth][https://github.com/crazytruth]
+* Kwang Jin Kim - [crazytruth](https://github.com/crazytruth)
 
 ## License
 
-This project is licensed under the MIT License - see [LICENSE][LICENSE] for details.
+This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
 

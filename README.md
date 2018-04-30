@@ -124,3 +124,14 @@ HTTP/1.1 204 No Content
 ```
 
 * `id`: The `id` or `resource_name` property of the `resource-transformer` entity to delete.
+
+## Running Tests
+
+## Authors
+
+* Kwang Jin Kim - [crazytruth][https://github.com/crazytruth]
+
+## License
+
+This project is licensed under the MIT License - see [LICENSE][LICENSE] for details.
+

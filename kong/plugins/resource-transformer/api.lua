@@ -17,7 +17,7 @@ end
 return {
   ["/resource-transformer/"] = {
     GET = function(self, dao_factory)
-      crud.paginated_set(self, dao_factory.resource_transformer)
+      return crud.paginated_set(self, dao_factory.resource_transformer)
     end,
     
     POST = function(self, dao_factory)

@@ -47,7 +47,7 @@ Here is a list of the parameters which can be used in this plugin's configuratio
 
 In order to use the plugin, you first need to create the resource names to look for and either respective transform uuids.
 
-**Create a resource**
+**Create a transformer**
 
 ``` sh
 $ curl -X POST -H "Content-type: application/json" --data '{"resource_name":"user", "transform_uuid":"2f4b5070-73b9-5c1c-8d3c-da8ae80051b0"}' http://kong:8001/resource-transformer/
@@ -71,7 +71,40 @@ This will look in the path of uri for `user` and if an integer id is found trail
 be taken and coverted to a uuid5 with the transform_uuid. So `uuid.generate_v5("2f4b5070-73b9-5c1c-8d3c-da8ae80051b0", "726)` and the resulting 
 uuid will be rewritten in place of the integer ids, resulting in the upstream uri to be rewritten as `/user/698aa227-04b1-53be-9a46-1459d8a0f493`.
 
-**Update a resource**
+**List transformers**
+``` sh
+$ curl -X GET http://kong:8001/resource-transformer/
+HTTP/1.1 200 OK
+
+{
+  "total":1,
+  "data":[
+    {
+      "transform_uuid":"2f4b5070-73b9-5c1c-8d3c-da8ae80051b0",
+      "created_at":1525061288000,
+      "resource_name":"user",
+      "id":"332f012f-5b37-4fcd-917c-d742855989af"
+    }
+  ]
+}
+```
+
+**Get a transformer**
+
+``` sh
+$ curl -X GET http://kong:8001/resource-transformer/{id_or_resource_name}
+HTTP/1.1 200 OK
+{
+  "transform_uuid":"2f4b5070-73b9-5c1c-8d3c-da8ae80051b0",
+  "created_at":1525061288000,
+  "resource_name":"user",
+  "id":"332f012f-5b37-4fcd-917c-d742855989af"
+}
+```
+
+* `id`: The `id` or `resource_name` property of the `resource-transformer` entity to fetch.
+
+**Update a transformer**
 
 ``` sh 
 $ curl -X PUT -H "Content-type: application/json" --data '{"resource_name":"user", "transform_uuid":"2f4b5070-73b9-5c1c-8d3c-da8ae80051b0"}' http://kong:8001/resource-transformer/{id_or_resource_name}
@@ -83,7 +116,7 @@ $ curl -X PUT -H "Content-type: application/json" --data '{"resource_name":"user
 | `transform_uuid` *required* | | `required` The uuid that will be used as the namespace for uuid5 generation. |
 
 
-**Delete a resource**
+**Delete a transformer**
 
 ``` sh 
 $ curl -X DELETE http://kong:8001/resource-transformer/{id}

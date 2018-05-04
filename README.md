@@ -127,6 +127,14 @@ HTTP/1.1 204 No Content
 
 ## Running Tests
 
+## Uploading to Package Manager
+
+### Luarocks
+
+``` sh
+$ luarocks upload resource-transformer-X.X.X.rockspec
+```
+
 ## Authors
 
 * Kwang Jin Kim - [crazytruth](https://github.com/crazytruth)

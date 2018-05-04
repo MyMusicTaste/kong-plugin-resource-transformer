@@ -18,7 +18,9 @@ the keys for each service.
 
 ## Installation
 
-
+``` sh
+$ luarocks install resource-transformer
+```
 
 ## Usage
 

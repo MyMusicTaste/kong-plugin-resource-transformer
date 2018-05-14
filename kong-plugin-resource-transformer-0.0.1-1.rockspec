@@ -13,7 +13,7 @@ local pluginName = package:match("^kong%-plugin%-(.+)$")  -- "myPlugin"
 supported_platforms = {"linux", "macosx"}
 source = {
   -- these are initially not required to make it work
-  url = "git@github.com:MyMusicTaste/kong-plugin-resource-transformer.git",
+  url = "git://github.com/MyMusicTaste/kong-plugin-resource-transformer",
   tag = "v0.0.1"
 }
 

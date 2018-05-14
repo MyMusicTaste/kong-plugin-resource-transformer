@@ -129,6 +129,37 @@ HTTP/1.1 204 No Content
 
 ## Running Tests
 
+## Development
+
+*Reference: https://github.com/Kong/kong-vagrant#development-environment*
+
+``` sh
+# clone kong-vagrant
+$ git clone https://github.com/Kong/kong-vagrant
+$ cd kong-vagrant
+
+# clone kong repo
+$ git clone https://github.com/Kong/kong
+
+# run vagrant (eg.'KONG_PLUGIN_PATH=../kong-plugin-resource-transformer/ vagrant up')
+$ KONG_PLUGIN_PATH=/path/to/plugin vagrant up 
+$ vagrant ssh
+$ cd /kong
+$ make dev
+
+# to enable resource-transformer plugin
+$ export KONG_CUTOMER_PLUGINS=resource-transformer
+
+# start kong
+# cd /kong
+$ bin/kong migrations up
+$ bin/kong start
+
+# to restart after code changes
+$ bin/kong restart
+```
+
+
 ## Uploading to Package Manager
 
 ### Luarocks

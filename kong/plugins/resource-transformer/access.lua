@@ -54,7 +54,7 @@ local function transform_resource_id(conf)
     if n>0 then 
       hooks:log_message(ngx.DEBUG, "MATCH_FOUND: " .. newstr)
     else
-      hooks.log_message(ngx.DEBUG, "MATCH NOT FOUND FOR: " .. v .. ". Skipping...")
+      hooks:log_message(ngx.DEBUG, "MATCH NOT FOUND FOR: " .. v .. ". Skipping...")
     end
   
   end

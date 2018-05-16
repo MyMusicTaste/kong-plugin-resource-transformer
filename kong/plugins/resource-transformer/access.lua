@@ -48,7 +48,7 @@ local function transform_resource_id(conf)
   local uri = ngx.var.uri
   
   for k, v in pairs(resources) do
-    local newstr, n, err = ngx.re.gsub(uri, "/(" .. v .. ")/(?<integer_id>[0-9]+/)", rewrite_uri)
+    local newstr, n, err = ngx.re.gsub(uri, "/(" .. v .. ")/(?<integer_id>[0-9]+)/", rewrite_uri)
     uri = newstr
     
     if n>0 then 

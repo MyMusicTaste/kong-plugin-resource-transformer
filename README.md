@@ -148,7 +148,7 @@ $ cd /kong
 $ make dev
 
 # to enable resource-transformer plugin
-$ export KONG_CUTOMER_PLUGINS=resource-transformer
+$ export KONG_CUSTOM_PLUGINS=resource-transformer
 
 # start kong
 # cd /kong
@@ -165,8 +165,12 @@ $ bin/kong restart
 ### Luarocks
 
 ``` sh
+$ git tag vX.X.X
+$ git push origin vX.X.X
 $ luarocks upload resource-transformer-X.X.X.rockspec
 ```
+
+where `X.X.X` is the new version.
 
 ## Authors
 

@@ -155,6 +155,10 @@ $ export KONG_CUSTOM_PLUGINS=resource-transformer
 $ bin/kong migrations up
 $ bin/kong start
 
+# make sure to enable resource-transformer with admin api
+# for global
+$ curl -X POST http://kong:8001/plugins/ --data "name=resource-transformer"
+
 # to restart after code changes
 $ bin/kong restart
 ```
@@ -167,7 +171,7 @@ $ bin/kong restart
 ``` sh
 $ git tag vX.X.X
 $ git push origin vX.X.X
-$ luarocks upload resource-transformer-X.X.X.rockspec
+$ luarocks upload kong-plugin-resource-transformer-X.X.X.rockspec
 ```
 
 where `X.X.X` is the new version.

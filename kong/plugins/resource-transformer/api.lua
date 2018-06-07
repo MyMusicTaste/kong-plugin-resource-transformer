@@ -15,7 +15,7 @@ end
 
 
 return {
-  ["/resource-transformer/"] = {
+  ["/resource-transformers/"] = {
     GET = function(self, dao_factory)
       return crud.paginated_set(self, dao_factory.resource_transformer)
     end,
@@ -33,7 +33,7 @@ return {
       end  
     end
   },
-  ["/resource-transformer/:id_or_resource_name/"] = {
+  ["/resource-transformers/:id_or_resource_name/"] = {
     before = function(self, dao_factory, helpers)
       local rows, err = crud.find_by_id_or_field(dao_factory.resource_transformer, {}, self.params.id_or_resource_name, "resource_name")
       

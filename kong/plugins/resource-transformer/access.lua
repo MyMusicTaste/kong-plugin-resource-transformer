@@ -35,7 +35,7 @@ end
 local rewrite_uri = function (m)
   log_message(ngx.DEBUG, "REWRITING: " .. dump(m))
   local transform_uuid = hooks:get_transform_uuid(m[1])
-  local u = uuid.generate_v5(transform_uuid, m['integer_id'])
+  local u = uuid.generate_v5(transform_uuid, m['integer_id']):gsub("-", "")
   
   local new_uri = "/" .. m[1] .. "/" .. u
   hooks:log_message(ngx.DEBUG, "NEW URI IS: " .. new_uri)

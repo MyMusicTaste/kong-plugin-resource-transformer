@@ -2,7 +2,7 @@ package = "kong-plugin-resource-transformer"
 version = "0.0.7-1"
 supported_platforms = {"linux", "macosx"}
 source = {
-   url = "git+ssh://github.com/MyMusicTaste/kong-plugin-resource-transformer"
+   url = "git+ssh://github.com/MyMusicTaste/kong-plugin-resource-transformer",
    branch = "kong-1.5.0"
 }
 description = {

@@ -36,9 +36,9 @@ function _M:get_transform_uuid(resource)
   
   _M:log_message(NOTICE, "TRYING TO GET TRANSFORM KEY FROM cache:: " .. resource)
   
-  local cache:_key = kong.db.resource_transformer:cache:_key(resource)
+  local cache_key = kong.db.resource_transformer:cache_key(resource)
   
-  _M:log_message(NOTICE, "cache:_KEY RESOLVED TO: " .. cache:_key)
+  _M:log_message(NOTICE, "CACHE_KEY RESOLVED TO: " .. cache_key)
   local transform_uuid, err = kong.cache:get(cache_key, nil, _M.load_transform_uuid, self, resource)
   if err then
     kong.log.err(err)

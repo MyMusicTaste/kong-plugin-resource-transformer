@@ -16,7 +16,6 @@ local MOCK_UPSTREAM_PORT = 15555
 local MOCK_UPSTREAM_SSL_PORT = 15556
 
 local conf_loader = require "kong.conf_loader"
-local DAOFactory = require "kong.dao.factory"
 local Blueprints = require "spec.fixtures.blueprints"
 local pl_stringx = require "pl.stringx"
 local pl_utils = require "pl.utils"
@@ -93,7 +92,7 @@ end
 ---------------
 local conf = assert(conf_loader(TEST_CONF_PATH))
 local db = assert(DB.new(conf))
-local dao = assert(DAOFactory.new(conf, db))
+local dao = assert(DB.new(conf, db))
 local blueprints = assert(Blueprints.new(dao, db))
 -- make sure migrations are up-to-date
 
@@ -133,7 +132,7 @@ local function get_db_utils(strategy, no_truncate)
   do
     local database = conf.database
     conf.database = strategy
-    dao = assert(DAOFactory.new(conf, db))
+    dao = assert(DB.new(conf, db))
     conf.database = database
 
     assert(dao:run_migrations())

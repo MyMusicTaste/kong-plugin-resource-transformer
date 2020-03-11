@@ -62,7 +62,7 @@ end --]]
 
 -- set the plugin priority, which determines plugin execution order
 ResourceTransformer.PRIORITY = 780
-ResourceTransformer.VERSION = "0.0.1"
+ResourceTransformer.VERSION = "0.0.2"
 
 -- return our plugin object
 return ResourceTransformer

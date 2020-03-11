@@ -1,4 +1,3 @@
-local responses = require "kong.tools.responses"
 local hooks = require "kong.plugins.resource-transformer.hooks"
 local uuid = require "resty.jit-uuid"
 

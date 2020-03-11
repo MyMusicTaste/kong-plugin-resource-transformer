@@ -1,16 +1,40 @@
 -- daos.lua
--- Defines a list of DAOs (Database Access Objects) that are abstractions of custom entities needed by your plugin and stored in the datastore.
--- Required: No
-local SCHEMA = {
-  primary_key = {"id"},
-  cache_key = { "resource_name" }, -- cache key for this entity
-  table = "resource_transformer", -- the actual table in the database
-  fields = {
-    id = {type = "id", dao_insert_value = true}, -- a value to be inserted by the DAO itself (think of serial ID and the uniqueness of such required here)
-    resource_name = {type = "string", required = true, unique = true}, -- resource name to check for
-    transform_uuid = {type = "id", required = true}, -- 
-    created_at = {type = "timestamp", immutable = true, dao_insert_value = true} -- also interted by the DAO itself
-  }
-}
+local typedefs = require "kong.db.schema.typedefs"
 
-return {resource_transformer = SCHEMA} 
+
+return {
+  -- this plugin only results in one custom DAO, named `resource_transformer`:
+  resource_transformer = {
+    name               = "resource_transformer", -- the actual table in the database
+    endpoint_key       = "resource_name",
+    primary_key        = { "id" },
+    cache_key          = { "resource_name" },
+    generate_admin_api = true,
+    fields = {
+      {
+        -- a value to be inserted by the DAO itself
+        -- (think of serial id and the uniqueness of such required here)
+        id = typedefs.uuid,
+      },
+      {
+        -- also interted by the DAO itself
+        created_at = typedefs.auto_timestamp_s,
+      },
+      {
+        -- a foreign key to a consumer's id
+        resource_name = {
+          type      = "string",
+          required   = true,
+          unique = true,
+        },
+      },
+      {
+        -- a unique API key
+        transform_uuid = {
+          type      = "uuid",
+          required  = true
+        },
+      },
+    },
+  },
+}

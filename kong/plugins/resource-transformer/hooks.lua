@@ -2,7 +2,7 @@ local _M = {}
 
 local kong = kong
 
-local cache:_resource_list_key = "resource-list"
+local cache_resource_list_key = "resource-list"
 
 local ngx_log = ngx.log
 local CRIT = ngx.CRIT

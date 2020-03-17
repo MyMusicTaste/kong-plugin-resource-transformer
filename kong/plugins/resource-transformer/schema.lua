@@ -1,16 +1,15 @@
 -- schema.lua
--- Holds the schema of your plugin's configuration, so that the user can only enter valid configuration values.
--- Required: Yes
+local typedefs = require "kong.db.schema.typedefs"
 
 return {
-  no_consumer = true, -- this plugin is available on APIs as well as on Consumers,
+  name = "resource-transformer",
   fields = {
-    -- Describe your plugin's configuration's schema here.
-    -- resource_name = {type = "string", required = true, unique = true},
-    -- transform_uuid = {type = "string", required = true, regex = "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"}
+    { consumer = typedefs.no_consumer },
+    { run_on = typedefs.run_on_first },
+    { protocols = typedefs.protocols_http },
+    { config = {
+        type = "record",
+        fields = {
+    }, }, },
   },
-  self_check = function(schema, plugin_t, dao, is_updating)
-    -- perform any custom verification
-    return true
-  end
 }

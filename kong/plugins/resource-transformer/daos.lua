@@ -9,6 +9,8 @@ return {
     primary_key        = { "id" },
     cache_key          = { "resource_name" },
     generate_admin_api = true,
+    admin_api_name = "resource-transformers",
+    admin_api_nested_name = "resource-transformer",
     fields = {
       { id = typedefs.uuid, },
       { created_at = typedefs.auto_timestamp_s, },

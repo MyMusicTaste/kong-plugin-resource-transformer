@@ -17,9 +17,6 @@ return {
         -- Do nothing, accept existing state
       END$$;
     ]],
-    down = [[
-      DROP TABLE resource_transformer;
-    ]]
   },
 
   cassandra = {
@@ -33,8 +30,5 @@ return {
       );
       CREATE INDEX IF NOT EXISTS ON resource_uuid_transformer(transform_uuid);
     ]],
-    down = [[
-      DROP TABLE resource_uuid_transformer;
-    ]]
   },
 }

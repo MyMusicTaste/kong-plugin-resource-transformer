@@ -22,8 +22,8 @@ build = {
       ["kong.plugins.resource-transformer.daos"] = "kong/plugins/resource-transformer/daos.lua",
       ["kong.plugins.resource-transformer.handler"] = "kong/plugins/resource-transformer/handler.lua",
       ["kong.plugins.resource-transformer.hooks"] = "kong/plugins/resource-transformer/hooks.lua",
-      ["kong.plugins.resource-transformer.migrations.cassandra"] = "kong/plugins/resource-transformer/migrations/cassandra.lua",
-      ["kong.plugins.resource-transformer.migrations.postgres"] = "kong/plugins/resource-transformer/migrations/postgres.lua",
+      ["kong.plugins.resource-transformer.migrations.000_base_resource_transformer"] = "kong/plugins/resource-transformer/migrations/000_base_resource_transformer.lua",
+      ["kong.plugins.resource-transformer.migrations.init"] = "kong/plugins/resource-transformer/migrations/init.lua",
       ["kong.plugins.resource-transformer.schema"] = "kong/plugins/resource-transformer/schema.lua"
    },
    install = {

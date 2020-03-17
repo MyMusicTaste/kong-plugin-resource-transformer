@@ -1,6 +1,6 @@
 -- 000_base_resource_transformer.lua
 return {
-  postgresql = {
+  postgres = {
     up = [[
       CREATE TABLE IF NOT EXISTS "resource_transformer" (
         "id"             UUID      PRIMARY KEY,
@@ -19,6 +19,22 @@ return {
     ]],
     down = [[
       DROP TABLE resource_transformer;
+    ]]
+  },
+
+  cassandra = {
+    up =  [[
+      CREATE TABLE IF NOT EXISTS "resource_uuid_transformer"(
+        id uuid,
+        resource_name text,
+        transform_uuid uuid,
+        created_at timestamp,
+        PRIMARY KEY (id)
+      );
+      CREATE INDEX IF NOT EXISTS ON resource_uuid_transformer(transform_uuid);
+    ]],
+    down = [[
+      DROP TABLE resource_uuid_transformer;
     ]]
   },
 }

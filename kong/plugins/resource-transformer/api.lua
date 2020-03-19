@@ -1,7 +1,4 @@
 -- api.lua
---
--- required: no
-
 local kong = kong
 local endpoints = require "kong.api.endpoints"
 local resource_transformers_schema = kong.db.resource_transformers.schema

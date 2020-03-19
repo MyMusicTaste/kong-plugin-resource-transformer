@@ -9,10 +9,6 @@ return {
       consumer = typedefs.no_consumer
     },
     {
-      -- this plugin will only be executed on the first Kong node
-      -- if a request comes from a service mesh (when acting as
-      -- a non-service mesh gateway, the nodes are always considered
-      -- to be "first".
       run_on = typedefs.run_on_first
     },
     {
@@ -23,7 +19,8 @@ return {
       config = {
         type = "record",
         fields = {
-          -- Describe your plugin's configuration's schema here.        
+          { resource_name = {type = "string", required = true, unique = true }, },
+          { transform_uuid = {type = "string", required = true, uuid = true }, },
         },
       },
     },

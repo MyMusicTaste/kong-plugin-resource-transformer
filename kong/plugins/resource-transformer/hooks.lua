@@ -24,7 +24,9 @@ function _M.load_transform_uuid(self, resource)
     resource_name = resource
   }
   if err then
+    kong.log.err(err)
     error(err)
+    return nil
   end
   
   _M:log_message(NOTICE, "LOADED TRANSFORM KEY FROM DB: " .. dump(resources))
@@ -52,10 +54,13 @@ end
 function _M:load_resource_list()
   local resources, err = kong.db.resource_transformer:find_all()
   if err then
+    kong.log.err(err)
     error(err)
+    return nil
   end
   
   if not resources then
+    kong.log.err("Could not find resources.")
     return nil
   else
     r = {}

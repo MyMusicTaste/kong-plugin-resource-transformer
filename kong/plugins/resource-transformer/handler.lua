@@ -13,10 +13,10 @@ function ResourceTransformer:new()
 end
 
 
-function ResourceTransformer:access(conf)
+function ResourceTransformer:access(config)
   ResourceTransformer.super.access(self)
 
-  access.execute(conf)
+  access.execute(config)
 end
 
 

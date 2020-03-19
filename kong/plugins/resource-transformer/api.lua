@@ -1,7 +1,7 @@
 -- api.lua
 local kong = kong
 local endpoints = require "kong.api.endpoints"
-local resource_transformers_schema = kong.db.resource_transformers.schema
+local resource_transformers_schema = kong.db.resource_transformer.schema
 
 local function validate_uuid(uuid)
   local regex = "[0-9A-Fa-f]{8}-?[0-9A-Fa-f]{4}-?[1-5][0-9A-Fa-f]{3}-?[89ABab][0-9A-Fa-f]{3}-?[0-9A-Fa-f]{12}$"

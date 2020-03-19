@@ -27,5 +27,9 @@ return {
   },
   entity_checks = {
     -- Describe your plugin's entity validation rules
+    -- silly
+    { at_least_one_of = { "resource_name", "transform_uuid" }, },
+    -- We specify that both header-names cannot be the same
+    { distinct = { "resource_name", "transform_uuid"} },
   },
 }

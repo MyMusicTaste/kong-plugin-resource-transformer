@@ -1,11 +1,10 @@
 -- api.lua
+local kong = kong
 local endpoints = require "kong.api.endpoints"
 local resource_transformers_schema = kong.db.resource_transformer.schema
 local utils = require "kong.tools.utils"
 
-
 local ngx = ngx
-local kong = kong
 
 
 return {
@@ -27,7 +26,7 @@ return {
       end
     },
   },
-  ["/resource-transformers/:id_or_resource_name"] = {
+  ["/resource-transformers/:resource_transformer"] = {
     schema = resource_transformers_schema,
     methods = {
       before = function(self, db, helpers)
@@ -36,13 +35,12 @@ return {
           return endpoints.handle_error(err_t)
         end
 
-        self.resource_transformer = resource_transformer
-
-        if not self.resource_transformer then
+        if not resource_transformer then
           return kong.response.exit(404, { message = "Not found" })
         end
 
-        self.params.id = self.resource_transformer.id
+        self.resource_transformer = resource_transformer
+        self.params.id = resource_transformer.id
       end,
       
       GET = endpoints.get_entity_endpoint(resource_transformers_schema),

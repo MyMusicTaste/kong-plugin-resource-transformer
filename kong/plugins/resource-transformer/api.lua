@@ -36,12 +36,13 @@ return {
           return endpoints.handle_error(err_t)
         end
 
-        if not resource_transformer then
+        self.resource_transformer = resource_transformer
+
+        if not self.resource_transformer then
           return kong.response.exit(404, { message = "Not found" })
         end
 
-        self.resource_transformer = resource_transformer
-        self.params.id = resource_transformer.id
+        self.params.id = self.resource_transformer.id
       end,
       
       GET = endpoints.get_entity_endpoint(resource_transformers_schema),

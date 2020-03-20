@@ -19,8 +19,8 @@ return {
       config = {
         type = "record",
         fields = {
-          { resource_name = { type = "string", required = true, unique = true, }, },
-          { transform_uuid = { type = "string", required = true, uuid = true, }, },
+          -- { resource_name = { type = "string", required = true, unique = true, }, },
+          -- { transform_uuid = { type = "string", required = true, uuid = true, }, },
         },
       },
     },
@@ -28,8 +28,8 @@ return {
   entity_checks = {
     -- Describe your plugin's entity validation rules
     -- silly
-    { at_least_one_of = { "config.resource_name", "config.transform_uuid" }, },
+    -- { at_least_one_of = { "config.resource_name", "config.transform_uuid" }, },
     -- We specify that both header-names cannot be the same
-    { distinct = { "config.resource_name", "config.transform_uuid"}, },
+    -- { distinct = { "config.resource_name", "config.transform_uuid"}, },
   },
 }

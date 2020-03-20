@@ -16,7 +16,7 @@ return {
   ["/resource-transformers/"] = {
     schema = resource_transformers_schema,
     methods = {
-      GET = endpoints.get_entity_endpoint(resource_transformers_schema),
+      GET = endpoints.get_collection_endpoint(resource_transformers_schema),
       POST = function(self, db)
         ngx.log(ngx.NOTICE, "CREATING RESOURCE TRANSFORMER: " .. self.params.resource_name .. " with " .. self.params.transform_uuid)
 

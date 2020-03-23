@@ -53,7 +53,7 @@ end
 
 function _M:load_resource_list()
   r = {}
-  for resource, err on kong.db.resource_transformer:each(1000) do
+  for resource, err in kong.db.resource_transformer:each(1000) do
     if err then
       kong.log.err("Error when iterating over resource transformers: " .. err)
       return nil

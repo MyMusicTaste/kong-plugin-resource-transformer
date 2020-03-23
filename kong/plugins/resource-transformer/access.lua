@@ -43,7 +43,7 @@ local rewrite_uri = function (m)
 end
 
 local function transform_resource_id(conf)
-  local resources = hooks.get_resource_list()
+  local resources = hooks:get_resource_list()
   local uri = ngx.var.uri
   
   for k, v in pairs(resources) do

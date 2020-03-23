@@ -16,7 +16,7 @@ function _M:log_message(level, msg)
   ngx_log(level, msg)
 end
 
-function _M:load_transform_uuid(resource)
+function _M:load_transform_uuid(self, resource)
 
   _M:log_message(NOTICE, "TRYING TO LOAD TRANSFORM KEY FROM DB: " .. resource)
 
@@ -34,11 +34,14 @@ end
 function _M:get_transform_uuid(resource)
   
   _M:log_message(NOTICE, "TRYING TO GET TRANSFORM KEY FROM cache:: " .. resource)
-  
+
   local cache_key = kong.db.resource_transformer:cache_key(resource)
   
   _M:log_message(NOTICE, "CACHE_KEY RESOLVED TO: " .. cache_key)
-  local transform_uuid, err = kong.cache:get(cache_key, nil, _M:load_transform_uuid, resource)
+  local transform_uuid, err = kong.cache:get(cache_key, nil,
+                                             _M.load_transform_uuid,
+                                             self,
+                                             resource)
   if err then
     kong.log.err(err)
     return kong.response.exit(500, {
@@ -63,7 +66,7 @@ function _M:load_resource_list()
 end
 
 function _M:get_resource_list()
-  local value, err = kong.cache:get(cache_resource_list_key, nil, _M:load_resource_list)
+  local value, err = kong.cache:get(cache_resource_list_key, nil, _M.load_resource_list)
   
   if err then
     kong.log.err(err)

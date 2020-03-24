@@ -1,16 +1,21 @@
 -- daos.lua
--- Defines a list of DAOs (Database Access Objects) that are abstractions of custom entities needed by your plugin and stored in the datastore.
--- Required: No
-local SCHEMA = {
-  primary_key = {"id"},
-  cache_key = { "resource_name" }, -- cache key for this entity
-  table = "resource_transformer", -- the actual table in the database
-  fields = {
-    id = {type = "id", dao_insert_value = true}, -- a value to be inserted by the DAO itself (think of serial ID and the uniqueness of such required here)
-    resource_name = {type = "string", required = true, unique = true}, -- resource name to check for
-    transform_uuid = {type = "id", required = true}, -- 
-    created_at = {type = "timestamp", immutable = true, dao_insert_value = true} -- also interted by the DAO itself
-  }
-}
+local typedefs = require "kong.db.schema.typedefs"
 
-return {resource_transformer = SCHEMA} 
+return {
+  -- this plugin only results in one custom DAO, named `resource_transformer`:
+  resource_transformer = {
+    name               = "resource_transformer", -- the actual table in the database
+    endpoint_key       = "resource_name",
+    primary_key        = { "id" },
+    cache_key          = { "resource_name" },
+    generate_admin_api = true,
+    admin_api_name = "resource-transformers",
+    admin_api_nested_name = "resource-transformer",
+    fields = {
+      { id = typedefs.uuid, },
+      { created_at = typedefs.auto_timestamp_s, },
+      { resource_name = { type = "string", required = true, unique = true, }, },
+      { transform_uuid = typedefs.uuid { required  = true }, },
+    },
+  },
+}

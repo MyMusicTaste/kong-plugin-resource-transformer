@@ -1,16 +1,35 @@
--- schema.lua
--- Holds the schema of your plugin's configuration, so that the user can only enter valid configuration values.
--- Required: Yes
+local typedefs = require "kong.db.schema.typedefs"
+
 
 return {
-  no_consumer = true, -- this plugin is available on APIs as well as on Consumers,
+  name = "resource-transformer",
   fields = {
-    -- Describe your plugin's configuration's schema here.
-    -- resource_name = {type = "string", required = true, unique = true},
-    -- transform_uuid = {type = "string", required = true, regex = "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$"}
+    {
+      -- this plugin will only be applied to Services or Routes
+      consumer = typedefs.no_consumer
+    },
+    {
+      run_on = typedefs.run_on_first
+    },
+    {
+      -- this plugin will only run within Nginx HTTP module
+      protocols = typedefs.protocols_http
+    },
+    {
+      config = {
+        type = "record",
+        fields = {
+          { resource_name = { type = "string", required = true, unique = true, }, },
+          { transform_uuid = { type = "string", required = true, uuid = true, }, },
+        },
+      },
+    },
   },
-  self_check = function(schema, plugin_t, dao, is_updating)
-    -- perform any custom verification
-    return true
-  end
+  entity_checks = {
+    -- Describe your plugin's entity validation rules
+    -- silly
+    { at_least_one_of = { "config.resource_name", "config.transform_uuid" }, },
+    -- We specify that both header-names cannot be the same
+    { distinct = { "config.resource_name", "config.transform_uuid"}, },
+  },
 }
